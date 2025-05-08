@@ -117,7 +117,6 @@ public:
 	using typename base_req::propagate_on_container_move_assignment;
 
 	constexpr seg_list_allocator() noexcept
-		: base_req{}, m_seg_list{}
 	{
 	}
 
@@ -125,10 +124,20 @@ public:
 	{
 	}
 
-	constexpr seg_list_allocator(const seg_list_allocator& rhs) = delete;
+	constexpr seg_list_allocator(const seg_list_allocator& )
+	{
+	}
+
+	constexpr
+	auto operator=(const seg_list_allocator&) -> seg_list_allocator&
+	{
+		return *this;
+	}
 
 	template<typename RhsTy>
-	constexpr seg_list_allocator(const seg_list_allocator<RhsTy>& ) = delete;
+	constexpr seg_list_allocator(const seg_list_allocator<RhsTy>& )
+	{
+	}
 
 private:
 	constexpr auto allocate_impl(std::size_t n) -> value_type*
